@@ -11,6 +11,7 @@
         {
             Id = id;
             PricePerMinute = pricePerMinute;
+            IsRented = false;
         }
         /// <summary>
         /// Unique ID of the scooter.
