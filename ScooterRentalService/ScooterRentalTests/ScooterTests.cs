@@ -45,5 +45,30 @@ namespace ScooterRentalTests
 
             Assert.AreEqual(c.GetScooters()[0], test);
         }
+
+        [TestMethod]
+        public void StartRent_ScooterId_RemovesScooterFromList()
+        {
+            ScooterService c = new ScooterService();
+            c.AddScooter("3", 0.5m);
+
+            RentalCompany a = new RentalCompany();
+            a.StartRent("3");
+
+            Assert.IsFalse(c.GetScooters().Count == 0);
+        }
+
+        [TestMethod]
+        public void EndRent_ScooterId_PutsScooterBackInList()
+        {
+            ScooterService c = new ScooterService();
+            c.AddScooter("3", 0.5m);
+            RentalCompany a = new RentalCompany();
+            a.StartRent("3");
+
+            a.EndRent("3");
+
+            Assert.AreEqual("3", c.GetScooters()[0].Id);
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace ScooterRentalService
         /// Remove scooter. This action is not allowed for scooters if the rental is in progress.
         /// </summary>
         /// <param name="id">Unique ID of the scooter</param>
-        void RemoveScooter(string id);
+        Scooter RemoveScooter(string id);
         /// <summary>
         /// List of scooters that belong to the company.
         /// </summary>
