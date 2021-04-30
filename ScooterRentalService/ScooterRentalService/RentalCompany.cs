@@ -15,6 +15,26 @@ namespace ScooterRentalService
             rentedList = new Dictionary<Scooter, DateTime>();
         }
 
+        public void AddScooter(string id, decimal pricePerMinute)
+        {
+            scooter.AddScooter(id, pricePerMinute);
+        }
+
+        public Scooter RemoveScooter(string id)
+        {
+            return scooter.RemoveScooter(id);
+        }
+
+        public IList<Scooter> GetScooters()
+        {
+            return scooter.GetScooters();
+        }
+
+        public Scooter GetScooterById(string scooterId)
+        {
+            return scooter.GetScooterById(scooterId);
+        }
+
         public void StartRent(string id)
         {
             var startTime = DateTime.Now;
@@ -41,7 +61,7 @@ namespace ScooterRentalService
             var minsUsed = (endTime - firstTime).TotalMinutes;
             var result = (decimal)minsUsed * price;
 
-            return result;
+            return Math.Round(result);
         }
 
         public decimal CalculateIncome(int? year, bool includeNotCompletedRentals)

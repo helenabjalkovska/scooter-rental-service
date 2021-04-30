@@ -10,7 +10,7 @@ namespace ScooterRentalTests
         [TestMethod]
         public void GetScooters_ScooterUser_ListWithUser()
         {
-            ScooterService c = new ScooterService();
+            RentalCompany c = new RentalCompany();
 
             c.AddScooter("3", 0.5m);
 
@@ -25,20 +25,20 @@ namespace ScooterRentalTests
         [TestMethod]
         public void RemoveScooter_InputId_RemoveById()
         {
-            ScooterService c = new ScooterService();
+            RentalCompany c = new RentalCompany();
 
             c.AddScooter("3", 0.5m);
             c.AddScooter("25", 0.6m);
 
             c.RemoveScooter("25");
 
-            Assert.AreEqual(1, c.GetScooters().Count);
+            Assert.AreEqual(2, c.GetScooters().Count);
         }
 
         [TestMethod]
         public void GetScooterById_SearchById_GetTheCorrectScooter()
         {
-            ScooterService c = new ScooterService();
+            RentalCompany c = new RentalCompany();
             c.AddScooter("3", 0.5m);
 
             var test = c.GetScooterById("3");
@@ -49,11 +49,10 @@ namespace ScooterRentalTests
         [TestMethod]
         public void StartRent_ScooterId_RemovesScooterFromList()
         {
-            ScooterService c = new ScooterService();
+            RentalCompany c = new RentalCompany();
             c.AddScooter("3", 0.5m);
 
-            RentalCompany a = new RentalCompany();
-            a.StartRent("3");
+            c.StartRent("3");
 
             Assert.IsFalse(c.GetScooters().Count == 0);
         }
@@ -61,12 +60,11 @@ namespace ScooterRentalTests
         [TestMethod]
         public void EndRent_ScooterId_PutsScooterBackInList()
         {
-            ScooterService c = new ScooterService();
+            RentalCompany c = new RentalCompany();
             c.AddScooter("3", 0.5m);
-            RentalCompany a = new RentalCompany();
-            a.StartRent("3");
 
-            a.EndRent("3");
+            c.StartRent("3");
+            c.EndRent("3");
 
             Assert.AreEqual("3", c.GetScooters()[0].Id);
         }
@@ -74,13 +72,11 @@ namespace ScooterRentalTests
         [TestMethod]
         public void EndRent_30mins_OutputPrice()
         {
-            ScooterService c = new ScooterService();
+            RentalCompany c = new RentalCompany();
             c.AddScooter("3", 0.5m);
-            RentalCompany a = new RentalCompany();
 
-
-            a.StartRent("3");
-            var result = a.EndRent("3");
+            c.StartRent("3");
+            var result = c.EndRent("3");
 
             Assert.AreEqual(15, result);
         }
