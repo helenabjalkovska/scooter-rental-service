@@ -70,5 +70,21 @@ namespace ScooterRentalTests
 
             Assert.AreEqual("3", c.GetScooters()[0].Id);
         }
+
+        [TestMethod]
+        public void EndRent_30mins_OutputPrice()
+        {
+            ScooterService c = new ScooterService();
+            c.AddScooter("3", 0.5m);
+            RentalCompany a = new RentalCompany();
+
+
+            a.StartRent("3");
+            var result = a.EndRent("3");
+
+            Assert.AreEqual(15, result);
+        }
+
+
     }
 }

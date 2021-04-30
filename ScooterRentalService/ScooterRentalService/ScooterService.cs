@@ -4,13 +4,22 @@ namespace ScooterRentalService
 {
     public class ScooterService : IScooterService
     {
-        private Scooter test = new Scooter("test", 1.1m);
-        private List<Scooter> scooters = new List<Scooter>();
-        private List<Scooter> toRemove = new List<Scooter>();
+        private Scooter test;
+        private List<Scooter> scooters;
+        private List<Scooter> toRemove;
+
+        public ScooterService()
+        {
+            scooters = new List<Scooter>();
+            toRemove = new List<Scooter>();
+            test = new Scooter("test", 1.1m);
+
+            scooters.Add(test);
+        }
 
         public void AddScooter(string id, decimal pricePerMinute)
         {
-            scooters.Add(new Scooter(id, pricePerMinute));
+            scooters.Insert(0, new Scooter(id, pricePerMinute));
         }
 
         public Scooter RemoveScooter(string id)
@@ -25,7 +34,7 @@ namespace ScooterRentalService
                 }
             }
 
-            return test;
+            return scooters[0];
         }
 
         public IList<Scooter> GetScooters()

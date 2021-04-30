@@ -5,25 +5,43 @@ namespace ScooterRentalService
 {
     public class RentalCompany : IRentalCompany
     {
-        ScooterService scooter = new ScooterService();
-        private List<Scooter> rentedList = new List<Scooter>();
+        private ScooterService scooter;
+        private Dictionary<Scooter, DateTime> rentedList;
         public string Name { get; }
+
+        public RentalCompany()
+        {
+            scooter = new ScooterService();
+            rentedList = new Dictionary<Scooter, DateTime>();
+        }
+
         public void StartRent(string id)
         {
-            rentedList.Add(scooter.RemoveScooter(id));
+            var startTime = DateTime.Now;
+            rentedList.Add(scooter.RemoveScooter(id), startTime);
+
         }
 
         public decimal EndRent(string id)
         {
-            for (var i = 0; i < rentedList.Count; i++)
+            var endTime = DateTime.Now.AddMinutes(30);
+            DateTime firstTime = DateTime.Now;
+            Decimal price = 0;
+
+            foreach (KeyValuePair<Scooter, DateTime> entry in rentedList)
             {
-                if (rentedList[i].Id == id)
+                if (entry.Key.Id == id)
                 {
-                    scooter.AddScooter(rentedList[i].Id, rentedList[i].PricePerMinute);
+                    scooter.AddScooter(entry.Key.Id, entry.Key.PricePerMinute);
+                    price = entry.Key.PricePerMinute;
+                    firstTime = entry.Value;
                 }
             }
 
-            return 0.0m;
+            var minsUsed = (endTime - firstTime).TotalMinutes;
+            var result = (decimal)minsUsed * price;
+
+            return result;
         }
 
         public decimal CalculateIncome(int? year, bool includeNotCompletedRentals)
