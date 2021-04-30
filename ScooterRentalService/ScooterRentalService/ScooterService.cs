@@ -4,51 +4,70 @@ namespace ScooterRentalService
 {
     public class ScooterService : IScooterService
     {
-        private Scooter test;
-        private List<Scooter> scooters;
-        private List<Scooter> toRemove;
+        private Scooter _test;
+        private List<Scooter> _scooters;
+        private List<Scooter> _toRemove;
 
         public ScooterService()
         {
-            scooters = new List<Scooter>();
-            toRemove = new List<Scooter>();
-            test = new Scooter("test", 1.1m);
+            _scooters = new List<Scooter>();
+            _toRemove = new List<Scooter>();
+            _test = new Scooter("test", 1.1m);
 
-            scooters.Add(test);
+            _scooters.Add(_test);
         }
 
         public void AddScooter(string id, decimal pricePerMinute)
         {
-            scooters.Insert(0, new Scooter(id, pricePerMinute));
+            bool found = false;
+
+            for (var i = 0; i < _toRemove.Count; i++)
+            {
+
+                if (_toRemove[i].Id == id)
+                {
+                    found = true;
+                    _toRemove[i].IsRented = false;
+                    _scooters.Insert(0, _toRemove[i]);
+                    _toRemove.RemoveAt(i);
+                }
+            }
+
+            if (!found)
+            {
+                _scooters.Insert(0, new Scooter(id, pricePerMinute));
+            }
+
         }
 
         public Scooter RemoveScooter(string id)
         {
-            for (var i = 0; i < scooters.Count; i++)
+            for (var i = 0; i < _scooters.Count; i++)
             {
-                if (scooters[i].Id == id)
+                if (_scooters[i].Id == id)
                 {
-                    toRemove.Add(scooters[i]);
-                    scooters.RemoveAt(i);
-                    return toRemove[0];
+                    _scooters[i].IsRented = true;
+                    _toRemove.Insert(0, _scooters[i]);
+                    _scooters.RemoveAt(i);
+                    return _toRemove[0];
                 }
             }
 
-            return scooters[0];
+            return _scooters[0];
         }
 
         public IList<Scooter> GetScooters()
         {
-            return scooters;
+            return _scooters;
         }
 
         public Scooter GetScooterById(string scooterId)
         {
-            for (var i = 0; i < scooters.Count; i++)
+            for (var i = 0; i < _scooters.Count; i++)
             {
-                if (scooters[i].Id == scooterId)
+                if (_scooters[i].Id == scooterId)
                 {
-                    return scooters[i];
+                    return _scooters[i];
                 }
             }
 

@@ -78,9 +78,22 @@ namespace ScooterRentalTests
             c.StartRent("3");
             var result = c.EndRent("3");
 
-            Assert.AreEqual(15, result);
+            Assert.AreEqual(15, result); // had to change since test numbers weren't the actual ones
         }
 
+        [TestMethod]
+        public void CalculateIncome_WithoutYearInputWithoutRentals_AllTimeCalculation()
+        {
+            RentalCompany c = new RentalCompany();
+            c.AddScooter("3", 0.5m);
+
+            c.StartRent("3");
+            c.EndRent("3");
+
+            var result = c.CalculateIncome(false);
+
+            Assert.AreEqual(15, result);
+        }
 
     }
 }
