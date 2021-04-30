@@ -78,7 +78,8 @@ namespace ScooterRentalTests
             c.StartRent("3");
             var result = c.EndRent("3");
 
-            Assert.AreEqual(15, result); // had to change since test numbers weren't the actual ones
+            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
+            // before the expected was 15, since I tested with 30 min rental
         }
 
         [TestMethod]
@@ -92,8 +93,53 @@ namespace ScooterRentalTests
 
             var result = c.CalculateIncome(false);
 
-            Assert.AreEqual(15, result);
+            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
         }
 
+
+        [TestMethod]
+        public void CalculateIncome_WithYearInputWithoutRentals_CorrectYearIncome()
+        {
+            RentalCompany c = new RentalCompany();
+            c.AddScooter("3", 0.5m);
+
+            c.StartRent("3");
+            c.EndRent("3");
+
+            var result = c.CalculateIncome(2021, false);
+
+            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
+        }
+
+        [TestMethod]
+        public void CalculateIncome_WithYearInputWithoutRentals_IncorrectYearIncome()
+        {
+            RentalCompany c = new RentalCompany();
+            c.AddScooter("3", 0.5m);
+
+            c.StartRent("3");
+            c.EndRent("3");
+
+            var result = c.CalculateIncome(2019, false);
+
+            Assert.AreEqual(0, result);
+        }
+
+        [TestMethod]
+        public void CalculateIncome_WithoutYearInputWithRentals_AllTimeCalculation()
+        {
+            RentalCompany c = new RentalCompany();
+            c.AddScooter("3", 0.5m);
+            c.AddScooter("5", 1.0m);
+
+
+            c.StartRent("3");
+            c.StartRent("5");
+            c.EndRent("3");
+
+            var result = c.CalculateIncome(false);
+
+            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
+        }
     }
 }

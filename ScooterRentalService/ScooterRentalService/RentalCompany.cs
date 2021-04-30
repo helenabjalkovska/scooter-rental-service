@@ -16,6 +16,7 @@ namespace ScooterRentalService
             _scooter = new ScooterService();
             _rentedList = new Dictionary<Scooter, DateTime>();
             _income = new Dictionary<int, decimal>();
+            Name = "ScootGo";
         }
 
         public void AddScooter(string id, decimal pricePerMinute)
@@ -47,9 +48,9 @@ namespace ScooterRentalService
 
         public decimal EndRent(string id)
         {
-            var endTime = DateTime.Now.AddMinutes(30);
+            var endTime = DateTime.Now;
             DateTime firstTime = DateTime.Now;
-            Decimal price = 0;
+            decimal price = 0;
 
             foreach (KeyValuePair<Scooter, DateTime> entry in _rentedList)
             {
@@ -61,12 +62,18 @@ namespace ScooterRentalService
                 }
             }
 
-            var minsUsed = (endTime - firstTime).TotalMinutes;
-            var result = Math.Round((decimal)minsUsed * price);
+            var result = CalculateRent(endTime, firstTime, price);
 
             SaveIncome(firstTime, result);
 
             return result;
+        }
+
+        public decimal CalculateRent(DateTime endTime, DateTime startTime, decimal price)
+        {
+            var minsUsed = (endTime - startTime).TotalMinutes;
+
+            return Math.Round((decimal)minsUsed * price);
         }
 
         public void SaveIncome(DateTime time, decimal payment)
@@ -75,14 +82,51 @@ namespace ScooterRentalService
             _income.Add(year, payment);
         }
 
+        public decimal CalculateRentedIncome()
+        {
+            decimal rentedIncome = 0;
+
+            foreach (KeyValuePair<Scooter, DateTime> entry in _rentedList)
+            {
+                var price = entry.Key.PricePerMinute;
+                var firstTime = entry.Value;
+
+                rentedIncome += CalculateRent(DateTime.Now, firstTime, price);
+            }
+
+            return rentedIncome;
+        }
+
         public decimal CalculateIncome(int? year, bool includeNotCompletedRentals)
         {
-            throw new NotImplementedException();
+            decimal rentedIncome = 0;
+            if (_rentedList.Count > 0)
+            {
+                rentedIncome = CalculateRentedIncome();
+            }
+
+            decimal total = 0;
+            foreach (var entry in _income)
+            {
+                if (entry.Key == year)
+                {
+                    total += entry.Value;
+                }
+            }
+
+            return total + rentedIncome;
         }
 
         public decimal CalculateIncome(bool includeNotCompletedRentals)
         {
-            return _income.Values.Sum();
+            decimal rentedIncome = 0;
+            if (_rentedList.Count > 0)
+            {
+                rentedIncome = CalculateRentedIncome();
+            }
+
+            var total = _income.Values.Sum() + rentedIncome;
+            return total;
         }
     }
 }

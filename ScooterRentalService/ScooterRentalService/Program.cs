@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace ScooterRentalService
+﻿namespace ScooterRentalService
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
         }
     }
 }
