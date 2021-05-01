@@ -100,9 +100,12 @@ namespace ScooterRentalService
         public decimal CalculateIncome(int? year, bool includeNotCompletedRentals)
         {
             decimal rentedIncome = 0;
-            if (_rentedList.Count > 0)
+            if (includeNotCompletedRentals)
             {
-                rentedIncome = CalculateRentedIncome();
+                if (_rentedList.Count > 0)
+                {
+                    rentedIncome = CalculateRentedIncome();
+                }
             }
 
             decimal total = 0;
@@ -120,9 +123,12 @@ namespace ScooterRentalService
         public decimal CalculateIncome(bool includeNotCompletedRentals)
         {
             decimal rentedIncome = 0;
-            if (_rentedList.Count > 0)
+            if (includeNotCompletedRentals)
             {
-                rentedIncome = CalculateRentedIncome();
+                if (_rentedList.Count > 0)
+                {
+                    rentedIncome = CalculateRentedIncome();
+                }
             }
 
             var total = _income.Values.Sum() + rentedIncome;
