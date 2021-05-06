@@ -6,8 +6,18 @@ using System.Collections.Generic;
 
 namespace ScooterRental.UnitTest
 {
-    class ScooterServiceTests
+    [TestClass]
+    public class ScooterServiceTests
     {
+        private IScooterService _scooterService;
+        private IRentalCompany _company;
+
+        public ScooterServiceTests()
+        {
+            _scooterService = new ScooterService();
+            _company = new RentalCompany(_scooterService);
+        }
+
         [TestMethod]
         public void AddScooter_AddOne_ExistsOne()
         {
@@ -17,25 +27,19 @@ namespace ScooterRental.UnitTest
         [TestMethod]
         public void RentRentedScooter()
         {
-            IScooterService service = new ScooterService();
-            IRentalCompany company = new RentalCompany(service);
-
-            service.AddScooter("1", 0.5m);
-            company.StartRent("1");
-            company.StartRent("1");
+            _scooterService.AddScooter("1", 0.5m);
+            _company.StartRent("1");
+            _company.StartRent("1");
         }
 
         [TestMethod]
         public void GetScooters_ScooterUser_ListWithUser()
         {
-            IScooterService service = new ScooterService();
-            IRentalCompany company = new RentalCompany(service);
-
-            service.AddScooter("3", 0.5m);
+            _scooterService.AddScooter("3", 0.5m);
 
             var test = new List<Scooter> { new Scooter("3", 0.5m) };
 
-            var x = service.GetScooters();
+            var x = _scooterService.GetScooters();
 
             Assert.AreEqual(test[0].Id, x[0].Id);
             Assert.AreEqual(test[0].PricePerMinute, x[0].PricePerMinute);
@@ -44,27 +48,22 @@ namespace ScooterRental.UnitTest
         [TestMethod]
         public void RemoveScooter_InputId_RemoveById()
         {
-            IScooterService service = new ScooterService();
-            IRentalCompany company = new RentalCompany(service);
+            _scooterService.AddScooter("3", 0.5m);
+            _scooterService.AddScooter("25", 0.6m);
 
-            service.AddScooter("3", 0.5m);
-            service.AddScooter("25", 0.6m);
+            _scooterService.RemoveScooter("25");
 
-            service.RemoveScooter("25");
-
-            Assert.AreEqual(2, service.GetScooters().Count);
+            Assert.AreEqual(2, _scooterService.GetScooters().Count);
         }
 
         [TestMethod]
         public void GetScooterById_SearchById_GetTheCorrectScooter()
         {
-            IScooterService service = new ScooterService();
-            IRentalCompany company = new RentalCompany(service);
-            service.AddScooter("3", 0.5m);
+            _scooterService.AddScooter("3", 0.5m);
 
-            var test = service.GetScooterById("3");
+            var test = _scooterService.GetScooterById("3");
 
-            Assert.AreEqual(service.GetScooters()[0], test);
+            Assert.AreEqual(_scooterService.GetScooters()[0], test);
         }
 
 

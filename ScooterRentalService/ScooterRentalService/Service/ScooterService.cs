@@ -1,6 +1,7 @@
 ﻿using ScooterRentalService.Interfaces;
 using ScooterRentalService.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ScooterRentalService.Service
 {
@@ -37,7 +38,7 @@ namespace ScooterRentalService.Service
 
         }
 
-        public Scooter RemoveScooter(string id)
+        public void RemoveScooter(string id)
         {
             for (var i = 0; i < _scooters.Count; i++)
             {
@@ -46,16 +47,16 @@ namespace ScooterRentalService.Service
                     _scooters[i].IsRented = true;
                     _toRemove.Insert(0, _scooters[i]);
                     _scooters.RemoveAt(i);
-                    return _toRemove[0];
+
                 }
             }
 
-            return _scooters[0];
+
         }
 
         public IList<Scooter> GetScooters()
         {
-            return _scooters;
+            return _scooters.ToList();
         }
 
         public Scooter GetScooterById(string scooterId)

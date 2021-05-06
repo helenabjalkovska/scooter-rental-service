@@ -23,7 +23,7 @@ namespace ScooterRentalService.Models
         public void StartRent(string id)
         {
             var startTime = DateTime.Now;
-            _rentedList.Add(_scooter.RemoveScooter(id), startTime);
+            //_rentedList.Add(_scooter.RemoveScooter(id), startTime);
 
         }
 
