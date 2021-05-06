@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using ScooterRentalService.Models;
+using System.Collections.Generic;
 
-namespace ScooterRentalService
+namespace ScooterRentalService.Interfaces
 {
     public interface IScooterService
     {

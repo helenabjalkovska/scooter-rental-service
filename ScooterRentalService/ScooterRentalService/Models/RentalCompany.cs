@@ -1,42 +1,23 @@
-﻿using System;
+﻿using ScooterRentalService.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ScooterRentalService
+namespace ScooterRentalService.Models
 {
     public class RentalCompany : IRentalCompany
     {
-        private ScooterService _scooter;
+        private readonly IScooterService _scooter;
         private Dictionary<Scooter, DateTime> _rentedList;
         private Dictionary<int, decimal> _income;
         public string Name { get; }
 
-        public RentalCompany()
+        public RentalCompany(IScooterService scooterService)
         {
-            _scooter = new ScooterService();
+            _scooter = scooterService;
             _rentedList = new Dictionary<Scooter, DateTime>();
             _income = new Dictionary<int, decimal>();
             Name = "ScootGo";
-        }
-
-        public void AddScooter(string id, decimal pricePerMinute)
-        {
-            _scooter.AddScooter(id, pricePerMinute);
-        }
-
-        public Scooter RemoveScooter(string id)
-        {
-            return _scooter.RemoveScooter(id);
-        }
-
-        public IList<Scooter> GetScooters()
-        {
-            return _scooter.GetScooters();
-        }
-
-        public Scooter GetScooterById(string scooterId)
-        {
-            return _scooter.GetScooterById(scooterId);
         }
 
         public void StartRent(string id)

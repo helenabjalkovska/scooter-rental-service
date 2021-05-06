@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using ScooterRentalService.Interfaces;
+using ScooterRentalService.Models;
+using System.Collections.Generic;
 
-namespace ScooterRentalService
+namespace ScooterRentalService.Service
 {
     public class ScooterService : IScooterService
     {
-        private Scooter _testScooter;
         private List<Scooter> _scooters;
         private List<Scooter> _toRemove;
 
@@ -12,9 +13,6 @@ namespace ScooterRentalService
         {
             _scooters = new List<Scooter>();
             _toRemove = new List<Scooter>();
-            _testScooter = new Scooter("test", 1.1m);
-
-            _scooters.Add(_testScooter);
         }
 
         public void AddScooter(string id, decimal pricePerMinute)
