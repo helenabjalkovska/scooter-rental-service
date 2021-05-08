@@ -10,10 +10,12 @@ namespace ScooterRentalService.Models
         private readonly IScooterService _scooter;
         private Dictionary<Scooter, DateTime> _rentedList;
         private Dictionary<int, decimal> _income;
+        private IRentalCalculator _calculator;
         public string Name { get; }
 
         public RentalCompany(IScooterService scooterService)
         {
+            _calculator = new RentalCalculator();
             _scooter = scooterService;
             _rentedList = new Dictionary<Scooter, DateTime>();
             _income = new Dictionary<int, decimal>();
@@ -43,27 +45,14 @@ namespace ScooterRentalService.Models
                 }
             }
 
-            var result = CalculateRent(endTime, firstTime, price);
+            var result = _calculator.CalculateRent(endTime, firstTime, price);
 
-            SaveIncome(firstTime, result);
+            _calculator.SaveIncome(firstTime, result, _income);
 
             return result;
         }
 
-        public decimal CalculateRent(DateTime endTime, DateTime startTime, decimal price)
-        {
-            var minsUsed = (endTime - startTime).TotalMinutes;
-
-            return Math.Round((decimal)minsUsed * price);
-        }
-
-        public void SaveIncome(DateTime time, decimal payment)
-        {
-            var year = time.Year;
-            _income.Add(year, payment);
-        }
-
-        public decimal CalculateRentedIncome()
+        private decimal CalculateRentedIncome()
         {
             decimal rentedIncome = 0;
 
@@ -72,7 +61,7 @@ namespace ScooterRentalService.Models
                 var price = entry.Key.PricePerMinute;
                 var firstTime = entry.Value;
 
-                rentedIncome += CalculateRent(DateTime.Now, firstTime, price);
+                rentedIncome += _calculator.CalculateRent(DateTime.Now, firstTime, price);
             }
 
             return rentedIncome;

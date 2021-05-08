@@ -21,7 +21,9 @@ namespace ScooterRental.UnitTest
         [TestMethod]
         public void AddScooter_AddOne_ExistsOne()
         {
+            _scooterService.AddScooter("1", 0.2m);
 
+            Assert.AreEqual(1, _scooterService.GetScooters().Count);
         }
 
         [TestMethod]
@@ -53,7 +55,7 @@ namespace ScooterRental.UnitTest
 
             _scooterService.RemoveScooter("25");
 
-            Assert.AreEqual(2, _scooterService.GetScooters().Count);
+            Assert.AreEqual(1, _scooterService.GetScooters().Count);
         }
 
         [TestMethod]

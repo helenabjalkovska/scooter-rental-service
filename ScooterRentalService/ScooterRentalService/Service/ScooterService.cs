@@ -47,11 +47,8 @@ namespace ScooterRentalService.Service
                     _scooters[i].IsRented = true;
                     _toRemove.Insert(0, _scooters[i]);
                     _scooters.RemoveAt(i);
-
                 }
             }
-
-
         }
 
         public IList<Scooter> GetScooters()
