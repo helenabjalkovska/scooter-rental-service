@@ -58,9 +58,9 @@ namespace ScooterRental.UnitTest
             _company.StartRent("3");
             _company.EndRent("3");
 
-            //var result = _company.CalculateIncome(false);
+            var result = _company.CalculateIncome(null, false);
 
-            //Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
+            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
         }
 
 
@@ -101,9 +101,9 @@ namespace ScooterRental.UnitTest
             _company.StartRent("5");
             _company.EndRent("3");
 
-            //var result = company.CalculateIncome(false);
+            var result = _company.CalculateIncome(null, false);
 
-            //Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
+            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
         }
     }
 }

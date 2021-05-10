@@ -81,30 +81,23 @@ namespace ScooterRentalService.Models
             }
 
             decimal total = 0;
-            foreach (var entry in _income)
+            if (year != null)
             {
-                if (entry.Key == year)
+                foreach (var entry in _income)
                 {
-                    total += entry.Value;
+                    if (entry.Key == year)
+                    {
+                        total += entry.Value;
+                    }
                 }
             }
+            else
+            {
+                total = _income.Values.Sum();
+            }
+
 
             return total + rentedIncome;
-        }
-
-        public decimal CalculateIncome(bool includeNotCompletedRentals)
-        {
-            decimal rentedIncome = 0;
-            if (includeNotCompletedRentals)
-            {
-                if (_rentedList.Count > 0)
-                {
-                    rentedIncome = CalculateRentedIncome();
-                }
-            }
-
-            var total = _income.Values.Sum() + rentedIncome;
-            return total;
         }
     }
 }
