@@ -8,7 +8,8 @@ namespace ScooterRentalService.Models
     public class RentalCompany : IRentalCompany
     {
         private readonly IScooterService _scooter;
-        private Dictionary<Scooter, DateTime> _rentedList;
+        private IRentedScooters _rented;
+        private List<IRentedScooters> _rentedList;
         private Dictionary<int, decimal> _income;
         private IRentalCalculator _calculator;
         public string Name { get; }
@@ -17,16 +18,17 @@ namespace ScooterRentalService.Models
         {
             _calculator = new RentalCalculator();
             _scooter = scooterService;
-            _rentedList = new Dictionary<Scooter, DateTime>();
             _income = new Dictionary<int, decimal>();
+            _rentedList = new List<IRentedScooters>();
             Name = "ScootGo";
         }
 
         public void StartRent(string id)
         {
             var startTime = DateTime.Now;
-            //_rentedList.Add(_scooter.RemoveScooter(id), startTime);
-
+            _rented = new RentedScooters(_scooter.GetScooterById(id).Id, _scooter.GetScooterById(id).PricePerMinute,
+                startTime, true);
+            _rentedList.Add(_rented);
         }
 
         public decimal EndRent(string id)
@@ -35,13 +37,13 @@ namespace ScooterRentalService.Models
             DateTime firstTime = DateTime.Now;
             decimal price = 0;
 
-            foreach (KeyValuePair<Scooter, DateTime> entry in _rentedList)
+            foreach (var entry in _rentedList)
             {
-                if (entry.Key.Id == id)
+                if (entry.Id == id)
                 {
-                    _scooter.AddScooter(entry.Key.Id, entry.Key.PricePerMinute);
-                    price = entry.Key.PricePerMinute;
-                    firstTime = entry.Value;
+                    _scooter.AddScooter(entry.Id, entry.Price);
+                    price = entry.Price;
+                    firstTime = entry.RentStart;
                 }
             }
 
@@ -56,10 +58,10 @@ namespace ScooterRentalService.Models
         {
             decimal rentedIncome = 0;
 
-            foreach (KeyValuePair<Scooter, DateTime> entry in _rentedList)
+            foreach (var entry in _rentedList)
             {
-                var price = entry.Key.PricePerMinute;
-                var firstTime = entry.Value;
+                var price = entry.Price;
+                var firstTime = entry.RentStart;
 
                 rentedIncome += _calculator.CalculateRent(DateTime.Now, firstTime, price);
             }

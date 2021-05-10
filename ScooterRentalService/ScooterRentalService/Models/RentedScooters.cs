@@ -4,12 +4,17 @@ namespace ScooterRentalService
 {
     class RentedScooters : IRentedScooters
     {
-        public string Name => throw new NotImplementedException();
+        public string Id { get; set; }
+        public decimal Price { get; set; }
+        public DateTime RentStart { get; set; }
+        public bool IsRented { get; set; }
 
-        public decimal Price => throw new NotImplementedException();
-
-        public DateTime RentStart => throw new NotImplementedException();
-
-        public bool IsRented => throw new NotImplementedException();
+        public RentedScooters(string aId, decimal aPrice, DateTime aRentTime, bool aIsRented)
+        {
+            Id = aId;
+            Price = aPrice;
+            RentStart = aRentTime;
+            IsRented = aIsRented;
+        }
     }
 }

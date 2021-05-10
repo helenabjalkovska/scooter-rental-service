@@ -19,6 +19,26 @@ namespace ScooterRental.UnitTest
         }
 
         [TestMethod]
+        public void GetScooterById_ForLoop_ZeroIteration()
+        {
+            var result = _scooterService.GetScooterById("3");
+
+            Assert.AreEqual(null, result);
+        }
+
+        [TestMethod]
+        public void GetScooterById_ForLoop_OneIteration()
+        {
+            var test = new Scooter("3", 0.5m);
+            _scooterService.AddScooter("3", 0.5m);
+
+            var result = _scooterService.GetScooterById("3");
+
+            Assert.AreEqual(test.Id, result.Id);
+            Assert.AreEqual(test.PricePerMinute, result.PricePerMinute);
+        }
+
+        [TestMethod]
         public void AddScooter_AddOne_ExistsOne()
         {
             _scooterService.AddScooter("1", 0.2m);
@@ -67,7 +87,5 @@ namespace ScooterRental.UnitTest
 
             Assert.AreEqual(_scooterService.GetScooters()[0], test);
         }
-
-
     }
 }

@@ -4,9 +4,9 @@ namespace ScooterRentalService
 {
     interface IRentedScooters
     {
-        string Name { get; }
-        decimal Price { get; }
-        DateTime RentStart { get; }
-        bool IsRented { get; }
+        string Id { get; set; }
+        decimal Price { get; set; }
+        DateTime RentStart { get; set; }
+        bool IsRented { get; set; }
     }
 }
