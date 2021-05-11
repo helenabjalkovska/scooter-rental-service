@@ -3,6 +3,7 @@ using ScooterRentalService;
 using ScooterRentalService.Interfaces;
 using ScooterRentalService.Models;
 using ScooterRentalService.Service;
+using System.Collections.Generic;
 
 namespace ScooterRental.UnitTest
 {
@@ -11,11 +12,28 @@ namespace ScooterRental.UnitTest
     {
         private IScooterService _scooterService;
         private IRentalCompany _company;
+        private List<IRentedScooters> _rentedList;
 
         public RentalCompanyTests()
         {
             _scooterService = new ScooterService();
-            _company = new RentalCompany("Scooters", _scooterService);
+            _rentedList = new List<IRentedScooters>();
+            _company = new RentalCompany("Scooters", _scooterService, _rentedList);
+        }
+
+        [TestMethod]
+        public void CalculateRentedIncome()
+        {
+            _scooterService.AddScooter("3", 0.5m);
+            _scooterService.AddScooter("2", 0.5m);
+
+            _company.StartRent("3");
+            _company.StartRent("2");
+            _company.EndRent("3");
+
+            var result = _company.CalculateIncome(null, true);
+
+            Assert.AreEqual(20, result);
         }
 
         [TestMethod]

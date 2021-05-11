@@ -2,7 +2,7 @@
 
 namespace ScooterRentalService
 {
-    interface IRentedScooters
+    public interface IRentedScooters
     {
         string Id { get; set; }
         decimal Price { get; set; }

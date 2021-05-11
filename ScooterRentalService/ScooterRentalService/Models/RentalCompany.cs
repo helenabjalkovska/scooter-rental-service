@@ -14,12 +14,12 @@ namespace ScooterRentalService.Models
         private IRentalCalculator _calculator;
         public string Name { get; }
 
-        public RentalCompany(string name, IScooterService scooterService)
+        public RentalCompany(string name, IScooterService scooterService, List<IRentedScooters> rentedList)
         {
             _calculator = new RentalCalculator();
             _scooter = scooterService;
             _income = new Dictionary<int, decimal>();
-            _rentedList = new List<IRentedScooters>();
+            _rentedList = rentedList; //new List<IRentedScooters>();
             Name = name;
         }
 
