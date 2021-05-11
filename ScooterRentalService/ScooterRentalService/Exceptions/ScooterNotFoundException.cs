@@ -8,5 +8,10 @@ namespace ScooterRentalService
         {
 
         }
+
+        public ScooterNotFoundException(string message) : base(message)
+        {
+
+        }
     }
 }

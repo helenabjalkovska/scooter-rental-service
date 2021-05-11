@@ -43,6 +43,10 @@ namespace ScooterRentalService.Service
 
         public IList<Scooter> GetScooters()
         {
+            if (_scooters.ToList().Count == 0)
+            {
+                throw new ScooterNotFoundException("Scooters not found");
+            }
             return _scooters.ToList();
         }
 
