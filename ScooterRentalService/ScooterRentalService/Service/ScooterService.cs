@@ -16,6 +16,10 @@ namespace ScooterRentalService.Service
 
         public void AddScooter(string id, decimal pricePerMinute)
         {
+            if (pricePerMinute == 0)
+            {
+                throw new ZeroPriceException();
+            }
             _scooters.Add(new Scooter(id, pricePerMinute));
         }
 

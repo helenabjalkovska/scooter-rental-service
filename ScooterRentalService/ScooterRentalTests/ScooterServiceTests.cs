@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ScooterRentalService;
 using ScooterRentalService.Interfaces;
 using ScooterRentalService.Models;
 using ScooterRentalService.Service;
@@ -16,6 +17,12 @@ namespace ScooterRental.UnitTest
         {
             _scooterService = new ScooterService();
             _company = new RentalCompany(_scooterService);
+        }
+
+        [TestMethod]
+        public void AddScooter_AddZeroPrice()
+        {
+            Assert.ThrowsException<ZeroPriceException>(() => _scooterService.AddScooter("3", 0));
         }
 
         [TestMethod]
