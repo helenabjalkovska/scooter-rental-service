@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ScooterRentalService;
 using ScooterRentalService.Interfaces;
 using ScooterRentalService.Models;
 using ScooterRentalService.Service;
@@ -15,6 +16,12 @@ namespace ScooterRental.UnitTest
         {
             _scooterService = new ScooterService();
             _company = new RentalCompany(_scooterService);
+        }
+
+        [TestMethod]
+        public void StartRent_InvalidScooter()
+        {
+            Assert.ThrowsException<ScooterNotFoundException>(() => _company.StartRent("1"));
         }
 
         [TestMethod]

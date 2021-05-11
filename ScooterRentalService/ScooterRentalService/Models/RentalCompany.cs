@@ -25,6 +25,10 @@ namespace ScooterRentalService.Models
 
         public void StartRent(string id)
         {
+            if (_scooter.GetScooterById(id) == null)
+            {
+                throw new ScooterNotFoundException();
+            }
             var startTime = DateTime.Now;
             var scooter = _scooter.GetScooterById(id);
             _rented = new RentedScooters(scooter.Id, scooter.PricePerMinute, startTime, true);
