@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ScooterRentalService
 {
-    class RentalCalculator : IRentalCalculator
+    public class RentalCalculator : IRentalCalculator
     {
         public decimal CalculateRent(DateTime endTime, DateTime startTime, decimal price)
         {
