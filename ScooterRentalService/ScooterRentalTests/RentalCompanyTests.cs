@@ -31,6 +31,12 @@ namespace ScooterRental.UnitTest
         }
 
         [TestMethod]
+        public void CalculateIncome_YearWithoutIncome()
+        {
+            Assert.ThrowsException<IncomeNotFoundException>(() => _company.CalculateIncome(1800, false));
+        }
+
+        [TestMethod]
         public void StartRent_ScooterId_RemovesScooterFromList()
         {
             _scooterService.AddScooter("3", 0.5m);
@@ -88,19 +94,6 @@ namespace ScooterRental.UnitTest
             var result = _company.CalculateIncome(2021, false);
 
             Assert.AreEqual(20, result); // had to change since test numbers weren't the actual ones
-        }
-
-        [TestMethod]
-        public void CalculateIncome_WithYearInputWithoutRentals_IncorrectYearIncome()
-        {
-            _scooterService.AddScooter("3", 0.5m);
-
-            _company.StartRent("3");
-            _company.EndRent("3");
-
-            var result = _company.CalculateIncome(2019, false);
-
-            Assert.AreEqual(0, result);
         }
 
         [TestMethod]

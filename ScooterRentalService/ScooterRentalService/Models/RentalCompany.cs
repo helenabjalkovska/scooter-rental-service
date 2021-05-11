@@ -89,6 +89,11 @@ namespace ScooterRentalService.Models
             decimal total = 0;
             if (year != null)
             {
+                if (!_income.Values.ToList().Contains(Convert.ToInt32(year)))
+                {
+                    throw new IncomeNotFoundException();
+                }
+
                 foreach (var entry in _income)
                 {
                     if (entry.Key == year)
