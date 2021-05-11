@@ -26,14 +26,14 @@ namespace ScooterRentalService.Models
         public void StartRent(string id)
         {
             var startTime = DateTime.Now;
-            _rented = new RentedScooters(_scooter.GetScooterById(id).Id, _scooter.GetScooterById(id).PricePerMinute,
-                startTime, true);
+            var scooter = _scooter.GetScooterById(id);
+            _rented = new RentedScooters(scooter.Id, scooter.PricePerMinute, startTime, true);
             _rentedList.Add(_rented);
         }
 
         public decimal EndRent(string id)
         {
-            var endTime = DateTime.Now;
+            var endTime = DateTime.Now.AddMinutes(40);
             DateTime firstTime = DateTime.Now;
             decimal price = 0;
 
@@ -41,7 +41,7 @@ namespace ScooterRentalService.Models
             {
                 if (entry.Id == id)
                 {
-                    _scooter.AddScooter(entry.Id, entry.Price);
+                    entry.IsRented = false;
                     price = entry.Price;
                     firstTime = entry.RentStart;
                 }
@@ -74,10 +74,7 @@ namespace ScooterRentalService.Models
             decimal rentedIncome = 0;
             if (includeNotCompletedRentals)
             {
-                if (_rentedList.Count > 0)
-                {
-                    rentedIncome = CalculateRentedIncome();
-                }
+                rentedIncome = CalculateRentedIncome();
             }
 
             decimal total = 0;

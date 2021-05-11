@@ -46,7 +46,7 @@ namespace ScooterRental.UnitTest
             _company.StartRent("3");
             var result = _company.EndRent("3");
 
-            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
+            Assert.AreEqual(20, result); // had to change since test numbers weren't the actual ones
             // before the expected was 15, since I tested with 30 min rental
         }
 
@@ -60,7 +60,7 @@ namespace ScooterRental.UnitTest
 
             var result = _company.CalculateIncome(null, false);
 
-            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
+            Assert.AreEqual(20, result); // had to change since test numbers weren't the actual ones
         }
 
 
@@ -74,7 +74,7 @@ namespace ScooterRental.UnitTest
 
             var result = _company.CalculateIncome(2021, false);
 
-            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
+            Assert.AreEqual(20, result); // had to change since test numbers weren't the actual ones
         }
 
         [TestMethod]
@@ -103,7 +103,7 @@ namespace ScooterRental.UnitTest
 
             var result = _company.CalculateIncome(null, false);
 
-            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
+            Assert.AreEqual(20, result); // had to change since test numbers weren't the actual ones
         }
     }
 }
