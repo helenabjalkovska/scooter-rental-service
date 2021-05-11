@@ -15,7 +15,22 @@ namespace ScooterRental.UnitTest
         public RentalCompanyTests()
         {
             _scooterService = new ScooterService();
-            _company = new RentalCompany(_scooterService);
+            _company = new RentalCompany("Scooters", _scooterService);
+        }
+
+        [TestMethod]
+        public void StartRent_RentRentedScooter()
+        {
+            _scooterService.AddScooter("1", 0.5m);
+            _company.StartRent("1");
+
+            Assert.ThrowsException<ScooterRentedException>(() => _company.StartRent("1"));
+        }
+
+        [TestMethod]
+        public void GetName()
+        {
+            Assert.AreEqual("Scooters", _company.Name);
         }
 
         [TestMethod]

@@ -9,39 +9,41 @@ namespace ScooterRentalService.Models
     {
         private readonly IScooterService _scooter;
         private IRentedScooters _rented;
-        private List<IRentedScooters> _rentedList;
+        private List<IRentedScooters> _rentedList; // no ārpuses
         private Dictionary<int, decimal> _income;
         private IRentalCalculator _calculator;
         public string Name { get; }
 
-        public RentalCompany(IScooterService scooterService)
+        public RentalCompany(string name, IScooterService scooterService)
         {
             _calculator = new RentalCalculator();
             _scooter = scooterService;
             _income = new Dictionary<int, decimal>();
             _rentedList = new List<IRentedScooters>();
-            Name = "ScootGo";
+            Name = name;
         }
 
         public void StartRent(string id)
         {
-            if (_scooter.GetScooterById(id) == null)
-            {
-                throw new ScooterNotFoundException();
-            }
-            var startTime = DateTime.Now;
             var scooter = _scooter.GetScooterById(id);
+
+            if (scooter.IsRented == true)
+            {
+                throw new ScooterRentedException();
+            }
+
+            var startTime = DateTime.Now;
+            scooter.IsRented = true;
             _rented = new RentedScooters(scooter.Id, scooter.PricePerMinute, startTime, true);
             _rentedList.Add(_rented);
         }
 
         public decimal EndRent(string id)
         {
-            if (_scooter.GetScooterById(id) == null)
+            if (_scooter.GetScooterById(id).IsRented == false)
             {
-                throw new ScooterNotFoundException();
+                throw new ScooterNotRentedException();
             }
-
             var endTime = DateTime.Now.AddMinutes(40);
             DateTime firstTime = DateTime.Now;
             decimal price = 0;
@@ -89,7 +91,7 @@ namespace ScooterRentalService.Models
             decimal total = 0;
             if (year != null)
             {
-                if (!_income.Values.ToList().Contains(Convert.ToInt32(year)))
+                if (!_income.Keys.ToList().Contains(Convert.ToInt32(year)))
                 {
                     throw new IncomeNotFoundException();
                 }

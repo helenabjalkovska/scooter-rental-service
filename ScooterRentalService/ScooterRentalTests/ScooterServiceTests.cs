@@ -11,12 +11,10 @@ namespace ScooterRental.UnitTest
     public class ScooterServiceTests
     {
         private IScooterService _scooterService;
-        private IRentalCompany _company;
 
         public ScooterServiceTests()
         {
             _scooterService = new ScooterService();
-            _company = new RentalCompany(_scooterService);
         }
 
         [TestMethod]
@@ -61,14 +59,6 @@ namespace ScooterRental.UnitTest
             _scooterService.AddScooter("1", 0.2m);
 
             Assert.AreEqual(1, _scooterService.GetScooters().Count);
-        }
-
-        [TestMethod]
-        public void RentRentedScooter()
-        {
-            _scooterService.AddScooter("1", 0.5m);
-            _company.StartRent("1");
-            _company.StartRent("1");
         }
 
         [TestMethod]
