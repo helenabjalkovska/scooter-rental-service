@@ -12,12 +12,12 @@ namespace ScooterRental.UnitTest
     {
         private IScooterService _scooterService;
         private IRentalCompany _company;
-        private List<IRentedScooters> _rentedList;
+        private List<RentedScooters> _rentedList;
 
         public RentalCompanyTests()
         {
             _scooterService = new ScooterService();
-            _rentedList = new List<IRentedScooters>();
+            _rentedList = new List<RentedScooters>();
             _company = new RentalCompany("Scooters", _scooterService, _rentedList);
         }
 

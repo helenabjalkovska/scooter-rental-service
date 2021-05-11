@@ -8,18 +8,18 @@ namespace ScooterRentalService.Models
     public class RentalCompany : IRentalCompany
     {
         private readonly IScooterService _scooter;
-        private IRentedScooters _rented;
-        private List<IRentedScooters> _rentedList; // no ārpuses
+        private RentedScooters _rented;
+        private List<RentedScooters> _rentedList; // no ārpuses
         private Dictionary<int, decimal> _income;
         private IRentalCalculator _calculator;
         public string Name { get; }
 
-        public RentalCompany(string name, IScooterService scooterService, List<IRentedScooters> rentedList)
+        public RentalCompany(string name, IScooterService scooterService, List<RentedScooters> rentedList)
         {
             _calculator = new RentalCalculator();
             _scooter = scooterService;
             _income = new Dictionary<int, decimal>();
-            _rentedList = rentedList; //new List<IRentedScooters>();
+            _rentedList = rentedList; //new List<RentedScooters>();
             Name = name;
         }
 

@@ -2,7 +2,7 @@
 
 namespace ScooterRentalService
 {
-    class RentedScooters : IRentedScooters
+    public class RentedScooters
     {
         public string Id { get; set; }
         public decimal Price { get; set; }
