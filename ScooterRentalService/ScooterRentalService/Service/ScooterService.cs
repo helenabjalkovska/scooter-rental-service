@@ -25,12 +25,19 @@ namespace ScooterRentalService.Service
 
         public void RemoveScooter(string id)
         {
+            var found = false;
             for (var i = 0; i < _scooters.Count; i++)
             {
                 if (_scooters[i].Id == id)
                 {
+                    found = true;
                     _scooters.RemoveAt(i);
                 }
+            }
+
+            if (!found)
+            {
+                throw new ScooterNotFoundException();
             }
         }
 

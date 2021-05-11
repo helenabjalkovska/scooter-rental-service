@@ -26,6 +26,12 @@ namespace ScooterRental.UnitTest
         }
 
         [TestMethod]
+        public void RemoveScooter_InvalidScooter()
+        {
+            Assert.ThrowsException<ScooterNotFoundException>(() => _scooterService.RemoveScooter("1"));
+        }
+
+        [TestMethod]
         public void GetScooterById_ForLoop_ZeroIteration()
         {
             var result = _scooterService.GetScooterById("3");
