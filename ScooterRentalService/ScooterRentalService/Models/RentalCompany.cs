@@ -37,6 +37,11 @@ namespace ScooterRentalService.Models
 
         public decimal EndRent(string id)
         {
+            if (_scooter.GetScooterById(id) == null)
+            {
+                throw new ScooterNotFoundException();
+            }
+
             var endTime = DateTime.Now.AddMinutes(40);
             DateTime firstTime = DateTime.Now;
             decimal price = 0;

@@ -25,6 +25,12 @@ namespace ScooterRental.UnitTest
         }
 
         [TestMethod]
+        public void EndRent_InvalidScooter()
+        {
+            Assert.ThrowsException<ScooterNotFoundException>(() => _company.EndRent("1"));
+        }
+
+        [TestMethod]
         public void StartRent_ScooterId_RemovesScooterFromList()
         {
             _scooterService.AddScooter("3", 0.5m);
