@@ -60,7 +60,7 @@ namespace ScooterRentalService.Service
                 }
             }
 
-            return null;
+            throw new ScooterNotFoundException();
         }
     }
 }
