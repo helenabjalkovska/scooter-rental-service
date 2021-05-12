@@ -42,7 +42,7 @@ namespace ScooterRentalService.Models
         {
             if (_scooter.GetScooterById(id).IsRented == false)
             {
-                throw new ScooterNotFoundException("Scooter not rented");
+                throw new ScooterNotRentedException();
             }
             var endTime = DateTime.Now.AddMinutes(40);
             DateTime firstTime = DateTime.Now;
