@@ -9,7 +9,13 @@ namespace ScooterRentalService
         {
             decimal total = 0;
             var minsUsed = (endTime - startTime).TotalMinutes;
+            var daysUsed = (endTime - startTime).TotalDays;
             var result = Math.Round((decimal)minsUsed * price);
+
+            for (var i = 0; i < daysUsed; i++)
+            {
+
+            }
 
             if (result > 20)
             {
