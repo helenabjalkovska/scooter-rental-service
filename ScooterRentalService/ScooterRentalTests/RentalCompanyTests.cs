@@ -37,14 +37,6 @@ namespace ScooterRental.UnitTest
         }
 
         [TestMethod]
-        public void EndRent_ScooterWhichIsntRented()
-        {
-            _scooterService.AddScooter("1", 0.5m);
-
-            Assert.ThrowsException<ScooterNotRentedException>(() => _company.EndRent("1"));
-        }
-
-        [TestMethod]
         public void StartRent_RentRentedScooter()
         {
             _scooterService.AddScooter("1", 0.5m);
