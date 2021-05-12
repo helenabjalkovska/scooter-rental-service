@@ -37,14 +37,6 @@ namespace ScooterRental.UnitTest
         }
 
         [TestMethod]
-        public void EndRent_NotRentedScooter()
-        {
-            _scooterService.AddScooter("1", 0.5m);
-
-            Assert.ThrowsException<ScooterNotRentedException>(() => _company.EndRent("1"));
-        }
-
-        [TestMethod]
         public void StartRent_RentRentedScooter()
         {
             _scooterService.AddScooter("1", 0.5m);
@@ -107,7 +99,7 @@ namespace ScooterRental.UnitTest
             var result = _company.EndRent("3");
 
             Assert.AreEqual(20, result); // had to change since test numbers weren't the actual ones
-                                         // before the expected was 15, since I tested with 30 min rental
+            // before the expected was 15, since I tested with 30 min rental
         }
 
         [TestMethod]
