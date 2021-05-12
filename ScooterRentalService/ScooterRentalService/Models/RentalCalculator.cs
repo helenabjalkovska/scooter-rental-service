@@ -71,8 +71,9 @@ namespace ScooterRentalService
         {
             var endDay = new DateTime(time.Year, time.Month, time.AddDays(1).Day, 00, 00, 00);
             var dayHours = 24 + (endDay.TimeOfDay - time.TimeOfDay).Hours;
-            var hourMinutes = dayHours > 1 ? dayHours * 60 : 0;
-            var dayMins = 60 - time.TimeOfDay.Minutes + hourMinutes;
+            var fullMin = dayHours == 24 ? 0 : 60;
+            var hourMinutes = dayHours > 1 ? dayHours * fullMin : 0;
+            var dayMins = fullMin == 0 ? time.TimeOfDay.Minutes + hourMinutes : fullMin - time.TimeOfDay.Minutes + hourMinutes;
 
             return dayMins;
         }
