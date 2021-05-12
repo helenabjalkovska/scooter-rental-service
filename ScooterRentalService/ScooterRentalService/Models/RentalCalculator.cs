@@ -9,9 +9,9 @@ namespace ScooterRentalService
         {
             decimal total = 0;
 
-            var daysUsed = (endTime - startTime).TotalDays;
+            var daysUsed = (endTime.Day - startTime.Day);
 
-            if (daysUsed > 1)
+            if (daysUsed > 0)
             {
                 var firstDayMins = CalculateMinutes(startTime);
 
@@ -69,9 +69,10 @@ namespace ScooterRentalService
 
         private double CalculateMinutes(DateTime time)
         {
-            var dayHours = time.TimeOfDay.TotalHours;
-            var hourMinutes = dayHours * 60;
-            var dayMins = time.TimeOfDay.TotalMinutes + hourMinutes;
+            var endDay = new DateTime(time.Year, time.Month, time.AddDays(1).Day, 00, 00, 00);
+            var dayHours = 24 + (endDay.TimeOfDay - time.TimeOfDay).Hours;
+            var hourMinutes = dayHours > 1 ? dayHours * 60 : 0;
+            var dayMins = 60 - time.TimeOfDay.Minutes + hourMinutes;
 
             return dayMins;
         }

@@ -48,5 +48,17 @@ namespace ScooterRental.Tests
 
             Assert.AreEqual(40, result);
         }
+
+        [TestMethod]
+        public void CalculateRent_2Days_FirstEvening()
+        {
+            DateTime endtime = DateTime.Now;
+            DateTime startTime = new DateTime(2021, 05, 11, 23, 50, 00);
+            decimal price = 0.5m;
+
+            var result = _calculator.CalculateRent(endtime, startTime, price);
+
+            Assert.AreEqual(25, result);
+        }
     }
 }
