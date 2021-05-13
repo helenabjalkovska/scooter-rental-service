@@ -50,7 +50,7 @@ namespace ScooterRentalService.Models
 
             foreach (var entry in _rentedList)
             {
-                if (entry.Id == id)
+                if (entry.Id == id && entry.IsRented)
                 {
                     entry.IsRented = false;
                     price = entry.Price;

@@ -51,6 +51,19 @@ namespace ScooterRental.Tests
         }
 
         [TestMethod]
+        public void CalculateRent_4FullDays()
+        {
+            DateTime endtime = DateTime.Now;
+            DateTime yesterday = endtime.AddDays(-3);
+            DateTime startTime = new DateTime(2021, yesterday.Month, yesterday.Day, 08, 00, 00);
+            decimal price = 0.5m;
+
+            var result = _calculator.CalculateRent(endtime, startTime, price);
+
+            Assert.AreEqual(80, result);
+        }
+
+        [TestMethod]
         public void CalculateRent_2Days_FirstEveningShort()
         {
             DateTime endtime = DateTime.Now;

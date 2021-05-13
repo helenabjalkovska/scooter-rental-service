@@ -37,7 +37,7 @@ namespace ScooterRentalService
 
                 if (daysUsed > 2)
                 {
-                    for (var i = 1; i <= daysUsed; i++)
+                    for (var i = 2; i <= daysUsed; i++)
                     {
                         var day = startTime.AddDays(1);
                         var minutes = CalculateMinutes(day);
@@ -45,10 +45,6 @@ namespace ScooterRentalService
                         if (CalculateDaysRent(minutes, price) > 20)
                         {
                             total += 20;
-                        }
-                        else
-                        {
-                            total += CalculateDaysRent(minutes, price);
                         }
                     }
                 }
