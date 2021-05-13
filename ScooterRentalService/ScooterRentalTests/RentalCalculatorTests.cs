@@ -41,7 +41,8 @@ namespace ScooterRental.Tests
         public void CalculateRent_2FullDays()
         {
             DateTime endtime = DateTime.Now;
-            DateTime startTime = new DateTime(2021, 05, 11, 08, 00, 00);
+            DateTime yesterday = endtime.AddDays(-1);
+            DateTime startTime = new DateTime(2021, yesterday.Month, yesterday.Day, 08, 00, 00);
             decimal price = 0.5m;
 
             var result = _calculator.CalculateRent(endtime, startTime, price);
@@ -53,7 +54,8 @@ namespace ScooterRental.Tests
         public void CalculateRent_2Days_FirstEveningShort()
         {
             DateTime endtime = DateTime.Now;
-            DateTime startTime = new DateTime(2021, 05, 11, 23, 50, 00);
+            DateTime yesterday = endtime.AddDays(-1);
+            DateTime startTime = new DateTime(2021, yesterday.Month, yesterday.Day, 23, 50, 00);
             decimal price = 0.5m;
 
             var result = _calculator.CalculateRent(endtime, startTime, price);
@@ -64,8 +66,10 @@ namespace ScooterRental.Tests
         [TestMethod]
         public void CalculateRent_2Days_LastMorningShort()
         {
-            DateTime endtime = new DateTime(2021, 05, 12, 00, 10, 00);
-            DateTime startTime = new DateTime(2021, 05, 11, 23, 50, 00);
+            DateTime today = DateTime.Now;
+            DateTime yesterday = DateTime.Now.AddDays(-1);
+            DateTime endtime = new DateTime(2021, today.Month, today.Day, 00, 10, 00);
+            DateTime startTime = new DateTime(2021, yesterday.Month, yesterday.Day, 23, 50, 00);
             decimal price = 0.5m;
 
             var result = _calculator.CalculateRent(endtime, startTime, price);
