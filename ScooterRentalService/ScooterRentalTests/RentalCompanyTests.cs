@@ -22,21 +22,6 @@ namespace ScooterRental.UnitTest
         }
 
         [TestMethod]
-        public void CalculateRentedIncome()
-        {
-            _scooterService.AddScooter("3", 0.5m);
-            _scooterService.AddScooter("2", 0.5m);
-
-            _company.StartRent("3");
-            _company.StartRent("2");
-            _company.EndRent("3");
-
-            var result = _company.CalculateIncome(null, true);
-
-            Assert.AreEqual(20, result);
-        }
-
-        [TestMethod]
         public void EndRent_ScooterNotRented()
         {
             _scooterService.AddScooter("1", 0.5m);
@@ -106,7 +91,7 @@ namespace ScooterRental.UnitTest
             _company.StartRent("3");
             var result = _company.EndRent("3");
 
-            Assert.AreEqual(20, result); // had to change since test numbers weren't the actual ones
+            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
             // before the expected was 15, since I tested with 30 min rental
         }
 
@@ -120,7 +105,7 @@ namespace ScooterRental.UnitTest
 
             var result = _company.CalculateIncome(null, false);
 
-            Assert.AreEqual(20, result); // had to change since test numbers weren't the actual ones
+            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
         }
 
 
@@ -134,23 +119,22 @@ namespace ScooterRental.UnitTest
 
             var result = _company.CalculateIncome(2021, false);
 
-            Assert.AreEqual(20, result); // had to change since test numbers weren't the actual ones
+            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
         }
 
         [TestMethod]
         public void CalculateIncome_WithoutYearInputWithRentals_AllTimeCalculation()
         {
             _scooterService.AddScooter("3", 0.5m);
-            _scooterService.AddScooter("5", 1.0m);
-
+            _scooterService.AddScooter("2", 0.5m);
 
             _company.StartRent("3");
-            _company.StartRent("5");
+            _company.StartRent("2");
             _company.EndRent("3");
 
-            var result = _company.CalculateIncome(null, false);
+            var result = _company.CalculateIncome(null, true);
 
-            Assert.AreEqual(20, result); // had to change since test numbers weren't the actual ones
+            Assert.AreEqual(0, result); // had to change since test numbers weren't the actual ones
         }
     }
 }

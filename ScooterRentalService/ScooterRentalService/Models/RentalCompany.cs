@@ -9,7 +9,7 @@ namespace ScooterRentalService.Models
     {
         private readonly IScooterService _scooter;
         private RentedScooters _rented;
-        private List<RentedScooters> _rentedList; // no ārpuses
+        private List<RentedScooters> _rentedList;
         private Dictionary<int, decimal> _income;
         private IRentalCalculator _calculator;
         public string Name { get; }
@@ -19,7 +19,7 @@ namespace ScooterRentalService.Models
             _calculator = new RentalCalculator();
             _scooter = scooterService;
             _income = new Dictionary<int, decimal>();
-            _rentedList = rentedList; //new List<RentedScooters>();
+            _rentedList = rentedList;
             Name = name;
         }
 
@@ -44,7 +44,7 @@ namespace ScooterRentalService.Models
             {
                 throw new ScooterNotRentedException();
             }
-            var endTime = DateTime.Now.AddMinutes(40);
+            var endTime = DateTime.Now;
             DateTime firstTime = DateTime.Now;
             decimal price = 0;
 
