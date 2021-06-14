@@ -1,4 +1,4 @@
-﻿namespace ScooterRentalService
+﻿namespace ScooterRentalService.Models
 {
     public class Scooter
     {
@@ -13,14 +13,17 @@
             PricePerMinute = pricePerMinute;
             IsRented = false;
         }
+
         /// <summary>
         /// Unique ID of the scooter.
         /// </summary>
         public string Id { get; }
+
         /// <summary>
         /// Rental price of the scooter per one minute.
         /// </summary>
         public decimal PricePerMinute { get; }
+
         /// <summary>
         /// Identify if someone is renting this scooter.
         /// </summary>

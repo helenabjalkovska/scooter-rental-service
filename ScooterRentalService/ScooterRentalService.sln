@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScooterRentalService", "ScooterRentalService\ScooterRentalService.csproj", "{A7BF5C97-C72F-4233-9936-FA793FFD6BE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScooterRentalService", "ScooterRentalService\ScooterRentalService.csproj", "{A7BF5C97-C72F-4233-9936-FA793FFD6BE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScooterRental.UnitTest", "ScooterRentalTests\ScooterRental.UnitTest.csproj", "{5E281DCE-F610-4B98-A9E7-B4A0FB233973}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScooterRental.Tests", "ScooterRentalTests\ScooterRental.Tests.csproj", "{5E281DCE-F610-4B98-A9E7-B4A0FB233973}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A7BF5C97-C72F-4233-9936-FA793FFD6BE9} = {A7BF5C97-C72F-4233-9936-FA793FFD6BE9}
 	EndProjectSection
